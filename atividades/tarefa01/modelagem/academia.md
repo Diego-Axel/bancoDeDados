@@ -1,6 +1,12 @@
 ```mermaid
 flowchart TD
-        A(["Start"])
-        A --> B{"Decision"}
-        B --> C["Option A"]
-        B --> D["Option B"]
+    n1["Aluno"]
+    n2["Academia"]
+    n3["Instrutor"]
+    n4["Avaliação"]
+    n5["Treino"]
+    n1@{ shape: rounded}
+    n2@{ shape: rounded}
+    n3@{ shape: rounded}
+    n4@{ shape: rounded}
+    n5@{ shape: rounded}
