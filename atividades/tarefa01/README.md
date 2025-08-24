@@ -33,6 +33,12 @@ O sistema foi desenvolvido para:
 
 ## 🗂️ Estrutura de Dados
 
+### 📌 Aluno
+- `cpf`
+- `nome`
+- `sexo`
+- `endereço`
+
 ### 📌 Instrutor
 - `cref`
 - `cpf`
@@ -40,22 +46,86 @@ O sistema foi desenvolvido para:
 - `sexo`
 - `endereço`
 
-### 📌 Aluno
-- `cpf`
-- `nome`
-- `sexo`
-- `endereço`
-
 ### 📌 Avaliação
+- Ligada diretamente a um **Aluno** (via `cpf`);
+- Armazena as avaliações realizadas para acompanhamento de evolução.
+
+### 📌 Ficha de Treino
+- Ligada diretamente a um **Aluno**;
+- Contém os treinos programados.
 
 ### 📌 Treino
+- `idTreino`
+- `nome` (ex: Treino A, Pernas, Peito e Tríceps)
+- `descrição`
+
+### 📌 Exercício
+- `idExercicio`
+- `nome` (ex: Supino reto, Agachamento, Rosca bíceps)
+- `séries`
+- `repetições`
+- `carga`
 
 ---
 
-## 📌 Status do Projeto
-🔧 Em desenvolvimento – novas funcionalidades serão adicionadas em breve.
+## 📊 Modelo Entidade-Relacionamento (DER)
 
----
+O modelo abaixo representa a estrutura do sistema **MyAcademy**:
+
+```mermaid
+erDiagram
+    ALUNO {
+        string cpf PK
+        string nome
+        string sexo
+        string endereco
+    }
+
+    INSTRUTOR {
+        string cref PK
+        string cpf
+        string nome
+        string sexo
+        string endereco
+    }
+
+    AVALIACAO {
+        int id PK
+        string objetivo
+        float altura
+        float peso
+        float imc
+        date data
+        string cpf_aluno FK
+    }
+
+    FICHA_TREINO {
+        int idFicha PK
+        string cpf_aluno FK
+    }
+
+    TREINO {
+        int idTreino PK
+        string nome
+        string descricao
+        int idFicha FK
+    }
+
+    EXERCICIO {
+        int idExercicio PK
+        string nome
+        int series
+        int repeticoes
+        float carga
+        int idTreino FK
+    }
+
+    ALUNO ||--o{ AVALIACAO : "realiza"
+    ALUNO ||--|| FICHA_TREINO : "possui"
+    INSTRUTOR ||--o{ ALUNO : "orienta"
+    FICHA_TREINO ||--o{ TREINO : "possui"
+    TREINO ||--o{ EXERCICIO : "contém"
+```
 
 ## 📄 Licença
 Este projeto é de uso acadêmico/educacional.  
