@@ -101,14 +101,12 @@ erDiagram
 
     FICHA_TREINO {
         int idFicha PK
-        string cpf_aluno FK
     }
 
     TREINO {
         int idTreino PK
         string nome
         string descricao
-        int idFicha FK
     }
 
     EXERCICIO {
@@ -117,7 +115,6 @@ erDiagram
         int series
         int repeticoes
         float carga
-        int idTreino FK
     }
 
     ALUNO ||--o{ AVALIACAO : "realiza"
