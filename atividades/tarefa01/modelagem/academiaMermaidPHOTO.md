@@ -1,1 +1,0 @@
-<img src="images/academiaMermaidPHOTO.png" width="100%">
