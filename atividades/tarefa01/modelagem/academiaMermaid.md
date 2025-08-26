@@ -1,10 +1,3 @@
----
-config:
-  layout: dagre
-  theme: redux-color
-title: Curso de Inglês
----
-
 ```mermaid
 erDiagram
     ALUNO {
