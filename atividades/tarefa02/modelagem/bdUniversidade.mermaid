@@ -6,33 +6,75 @@ title: BD Universidade
 ---
 erDiagram
   direction TB
-  CENTRO {
-        
+  COMPONENTE_CURRICULAR {
+    int id PK
+    string nome
+    string tipo "Disciplina | Atividade"
+    int departamento_id FK
+    int curso_id FK
   }
-    
-  DEPARTAMENTO {
-    string codigo PK ""
-    string sigla ""
-    string nome ""
-    string local ""
+  COMPONENTE_CURRICULAR ||--o{ REQUISITO : possui
+  COMPONENTE_CURRICULAR ||--o{ TURMA : possui
+
+  REQUISITO {
+    int id PK
+    int componente_id FK
+    string descricao
   }
 
-  DOSCENTE {
-    string siape PK ""
-    string nome ""
-    string formacao ""
-    string area ""
+  DEPARTAMENTO {
+    int id PK
+    string nome
+    string local
+    int centro_id FK
   }
+  DEPARTAMENTO ||--o{ COMPONENTE_CURRICULAR : responsavel
+  DEPARTAMENTO ||--o{ DOCENTE : contem
+
+  DOCENTE {
+    int id PK
+    string nome
+    string titulacao
+    int departamento_id FK
+  }
+  DOCENTE }o--o{ TURMA : leciona
+
+  ALUNO {
+    int matricula PK
+    string nome
+    int curso_id FK
+  }
+  ALUNO }o--o{ TURMA : frequenta
+  ALUNO }o--o| MONITORIA : podeSerMonitor
+  ALUNO ||--o{ AVALIACAO : possui
+
+  MONITORIA {
+    int id PK
+    int aluno_id FK
+    int turma_id FK
+    string funcao
+  }
+  MONITORIA ||--|| TURMA : atuaEm
+  MONITORIA ||--|| ALUNO : ehAluno
 
   TURMA {
-
+    int id PK
+    string semestre
+    int componente_id FK
   }
+  TURMA ||--o{ AVALIACAO : contem
 
-  DISCENTE {
-    string matricula PK ""
-    string nome ""
+  AVALIACAO {
+    int id PK
+    int aluno_id FK
+    int turma_id FK
+    float nota1
+    float nota2
+    float nota3
+    string situacao "APROVADO | REPROVADO"
   }
-
-  COMPONENTE_CURRICULAR {
-
-  }
+  
+  CENTRO ||--o{ CURSO : possui
+  CENTRO ||--o{ DEPARTAMENTO : contem
+  CURSO ||--o{ COMPONENTE_CURRICULAR : possui
+  CURSO ||--o{ ALUNO : matricula
